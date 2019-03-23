@@ -22,7 +22,7 @@ public class GetterBoard {
                 .and().queryParams(Auth.getInstance().getAuthParams());
         link = BOARD + "key=" + Auth.getInstance().getKey() + "&token=" + Auth.getInstance().getToken();
         response = requestSpecification.when().get(link);
-        System.out.println(response.body().asString());
+        //System.out.println(response.body().asString());
         Boards = gson.fromJson(response.body().asString(), Board[].class);
 
     }
