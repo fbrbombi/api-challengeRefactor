@@ -42,8 +42,19 @@ public class SearcherAttributes {
         return false;
     }
 
-    public static String getRandomMemberOfTheBoard(TrelloObject[] trelloObjects) {
-        return "";
+    public static String getRandomMemberIdOfTheBoard(TrelloObject[] trelloObjects) {
+        int position = RandomGenerator.generateRandomNumber(trelloObjects.length - 1, 0);
+        return trelloObjects[position].getId();
     }
+
+    public static boolean isThisMemberPartOfTheCard(String idMember, TrelloObject[] cardMembers) {
+        for (TrelloObject cardMember : cardMembers) {
+            if (cardMember.getId().equals(idMember)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }

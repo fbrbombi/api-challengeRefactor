@@ -7,18 +7,4 @@ public class TrelloList extends TrelloObject {
         this.id = id;
         this.pos = pos;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-
-    public void setPos(String pos) {
-        this.pos = pos;
-    }
 }

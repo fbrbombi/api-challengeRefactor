@@ -97,6 +97,7 @@ public class TrelloAddTest {
         String idBoard = Serenity.sessionVariableCalled("idBoard");
         String idList = apiManager.getListId(listName, idBoard);
         Serenity.setSessionVariable("idList").to(idList);
+        Serenity.setSessionVariable("idBoard").to(idBoard);
         apiManager.postNewCard(cardName, idList);
     }
 
@@ -110,6 +111,41 @@ public class TrelloAddTest {
 
     @When("^the user send a petition for add a new member$")
     public void theUserSendAPetitionForAddANewMember() {
+        String idCard = Serenity.sessionVariableCalled("idCard");
+        String idBoard = Serenity.sessionVariableCalled("idBoard");
+        String idMember = apiManager.getIdMember(idBoard);
+        apiManager.addNewMember(idMember, idCard);
+        Serenity.setSessionVariable("idMember").to(idMember);
+    }
+
+    @Then("^The Trello API should responds adding a new member to the card$")
+    public void theTrelloAPIShouldRespondsAddingANewMemberToTheCard() {
+        String idCard = Serenity.sessionVariableCalled("idCard");
+        String idMember = Serenity.sessionVariableCalled("idMember");
+        boolean validation = isThisMemberPartOfTheCard(idMember, apiManager.getListOfMembersCard(idCard));
+        Assert.assertTrue(validation);
+
+    }
+
+    @And("^the user wants to add a new comment to the \"([^\"]*)\"$")
+    public void theUserWantsToAddANewCommentToThe(String cardName) {
+        String idList = Serenity.sessionVariableCalled("idList");
+        String idCard = apiManager.getCardId(idList, cardName);
+        Serenity.setSessionVariable("idCard").to(idCard);
+    }
+
+    @When("^the user send a petition for add a comment$")
+    public void theUserSendAPetitionForAddAComment() {
+        String idCard = Serenity.sessionVariableCalled("idCard");
+        String text = "ajiaco";
+        apiManager.postNewComment(text, idCard);
+    }
+
+    @Then("^The Trello API should responds adding a new comment to the card$")
+    public void theTrelloAPIShouldRespondsAddingANewCommentToTheCard() {
+        String idCard = Serenity.sessionVariableCalled("idCard");
+        System.out.println(apiManager.getComments(idCard)[0].getComments());
+
 
     }
 }

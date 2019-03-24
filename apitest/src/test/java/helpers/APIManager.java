@@ -1,16 +1,12 @@
 package helpers;
 
 import com.google.gson.Gson;
-import controllers.Objects.Board;
-import controllers.Objects.Card;
-import controllers.Objects.Member;
-import controllers.Objects.TrelloList;
+import controllers.Objects.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static utils.SearcherAttributes.findIdByName;
-import static utils.SearcherAttributes.findPositionOfTrelloElement;
+import static utils.SearcherAttributes.*;
 
 public class APIManager {
     protected Gson gson;
@@ -62,13 +58,24 @@ public class APIManager {
         return findIdByName(getCardsFromList(idList), cardName);
     }
 
-    private String getListMemberinfo(String idBoard) {
+    private String getListMemberOfBoardInfo(String idBoard) {
         return HTTPRequest.getRequest(null, "boards/" + idBoard + "/members").body().asString();
-
     }
 
-    public Member[] getListOfMembers(String idBoard) {
-        return gson.fromJson(getListMemberinfo(idBoard), Member[].class);
+    private Member[] getListOfMembersBoard(String idBoard) {
+        return gson.fromJson(getListMemberOfBoardInfo(idBoard), Member[].class);
+    }
+
+    public String getIdMember(String idBoard) {
+        return getRandomMemberIdOfTheBoard(getListOfMembersBoard(idBoard));
+    }
+
+    private String getListMemberOfCardInfo(String idCard) {
+        return HTTPRequest.getRequest(null, "cards/" + idCard + "/members").body().asString();
+    }
+
+    public Member[] getListOfMembersCard(String idCard) {
+        return gson.fromJson(getListMemberOfCardInfo(idCard), Member[].class);
     }
 
     public void postNewList(String name, String idBoard, String pos) {
@@ -86,8 +93,27 @@ public class APIManager {
         HTTPRequest.postRequest(params, "cards/");
     }
 
-    public void addNewMember() {
+    public void addNewMember(String value, String idCard) {
+        Map<String, String> params = new HashMap<>();
+        params.put("value", value);
+        HTTPRequest.postRequest(params, "cards/" + idCard + "/idMembers");
+    }
 
+    public void postNewComment(String text, String idCard) {
+        Map<String, String> params = new HashMap<>();
+        params.put("text", text);
+        HTTPRequest.postRequest(params, "cards/" + idCard + "/actions/comments");
+    }
+
+    private String getCommentsInfo(String idCard) {
+        Map<String, String> params = new HashMap<>();
+        params.put("fields", "badges");
+        return HTTPRequest.getRequest(params, "cards/" + idCard).body().asString();
+    }
+
+    public Comment[] getComments(String idCard) {
+        System.out.println(getCommentsInfo(idCard));
+        return gson.fromJson(getCommentsInfo(idCard), Comment[].class);
     }
 
 }

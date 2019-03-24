@@ -25,7 +25,7 @@ Feature: Add Element to Trello
       | QA Fabio    |
       | DONE        |
 
-  Scenario Outline: Add member to the list
+  Scenario Outline: Add member to the card
     And the user has created "QA Fabio" list
     And the user has created a "TestCard" card on the "<list>"
     And the user wants to add a new member to the "TestCard"
@@ -38,46 +38,16 @@ Feature: Add Element to Trello
       | QA Fabio    |
       | DONE        |
 
-  Scenario: Add member to the card
-    Given the user added a card
-    When the user wants to add a new member
-    Then The card must have a new member
-
-  Scenario: Add a comment to the card
-    Given the user added a card
-    When the user wants to comment a card
-    Then A new comment is posted
-
-
-  Scenario: Add member to the card when it stay IN PROGRESS list
-    Given the user added a card
-    When the user wants to add another member
-    Then A new member is added
-
-  Scenario: Add a comment to the card when it stay IN PROGRESS list
-    Given the user added a card
-    When the user wants to add another comment when the card is IN PROGRESS list
-    Then A new comment is posted
-
-  Scenario: Add member to the card when it stay QA list
-    Given the user added a card
-    When the user wants to add another member in QA
-    Then A new member is added
-
-  Scenario: Add a comment to the card when it stay QA list
-    Given the user added a card
-    When the user wants to add another comment when the card is QA list
-    Then A new comment is posted
-
-  Scenario: Add member to the card when it stay DONE list
-    Given the user added a card
-    When the user wants to add another member in DONE
-    Then A new member is added
-
-  Scenario: Add a comment to the card when it stay DONE list
-    Given the user added a card
-    When the user wants to add another comment when the card is DONE list
-    Then A new comment is posted
-
-
+  Scenario Outline: Add a comment to the card
+    And the user has created "QA Fabio" list
+    And the user has created a "TestCard" card on the "<list>"
+    And the user wants to add a new comment to the "TestCard"
+    When the user send a petition for add a comment
+    Then The Trello API should responds adding a new comment to the card
+    Examples:
+      | list        |
+      | TODO        |
+      | IN PROGRESS |
+      | QA Fabio    |
+      | DONE        |
 
