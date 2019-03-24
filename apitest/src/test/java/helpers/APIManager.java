@@ -116,4 +116,10 @@ public class APIManager {
         return gson.fromJson(getCommentsInfo(idCard), Comment[].class);
     }
 
+    public void moveACard(String nextList, String idCard) {
+        Map<String, String> params = new HashMap<>();
+        params.put("idList", nextList);
+        HTTPRequest.putRequest(params, "cards/" + idCard);
+    }
+
 }

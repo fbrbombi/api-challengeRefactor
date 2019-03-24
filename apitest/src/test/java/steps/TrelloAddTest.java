@@ -98,6 +98,7 @@ public class TrelloAddTest {
         String idList = apiManager.getListId(listName, idBoard);
         Serenity.setSessionVariable("idList").to(idList);
         Serenity.setSessionVariable("idBoard").to(idBoard);
+        Serenity.setSessionVariable("cardName").to(cardName);
         apiManager.postNewCard(cardName, idList);
     }
 
@@ -143,9 +144,37 @@ public class TrelloAddTest {
 
     @Then("^The Trello API should responds adding a new comment to the card$")
     public void theTrelloAPIShouldRespondsAddingANewCommentToTheCard() {
-        String idCard = Serenity.sessionVariableCalled("idCard");
-        System.out.println(apiManager.getComments(idCard)[0].getComments());
+        //String idCard = Serenity.sessionVariableCalled("idCard");
+        //System.out.println(apiManager.getComments(idCard)[0].getComments());
 
+
+    }
+
+    @And("^the user wants to move the card to the \"([^\"]*)\"$")
+    public void theUserWantsToMoveTheCardToThe(String nextList) {
+        String idBoard = Serenity.sessionVariableCalled("idBoard");
+        String idList = Serenity.sessionVariableCalled("idList");
+        String cardName = Serenity.sessionVariableCalled("cardName");
+        String idCard = apiManager.getCardId(idList, cardName);
+        String idNextList = apiManager.getListId(nextList, idBoard);
+        Serenity.setSessionVariable("idCard").to(idCard);
+        Serenity.setSessionVariable("idNextList").to(idNextList);
+
+    }
+
+    @When("^the user send a petition for move the card$")
+    public void theUserSendAPetitionForMoveTheCard() {
+        String idCard = Serenity.sessionVariableCalled("idCard");
+        String idNextList = Serenity.sessionVariableCalled("idNextList");
+        apiManager.moveACard(idNextList, idCard);
+    }
+
+    @Then("^The Trello API should responds moving the card$")
+    public void theTrelloAPIShouldRespondsMovingTheCard() {
+        String idCard = Serenity.sessionVariableCalled("idCard");
+        String idNextList = Serenity.sessionVariableCalled("idNextList");
+        boolean validation = isThereTheSameIdCard(idCard, apiManager.getCardsFromList(idNextList));
+        Assert.assertTrue(validation);
 
     }
 }

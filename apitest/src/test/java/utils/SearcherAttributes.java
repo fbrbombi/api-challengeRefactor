@@ -5,19 +5,17 @@ import controllers.Objects.TrelloObject;
 public class SearcherAttributes {
 
     public static String findIdByName(TrelloObject[] trelloObject, String name) {
-        int i;
-        for (i = 0; i < (trelloObject.length); i++) {
-            if (trelloObject[i].getName().equals(name)) {
-                return trelloObject[i].getId();
+        for (TrelloObject trelloObject1 : trelloObject) {
+            if (trelloObject1.getName().equals(name)) {
+                return trelloObject1.getId();
             }
         }
         return "Not found";
     }
 
     public static String findByName(TrelloObject[] trelloObject, String name) {
-        int i;
-        for (i = 0; i < (trelloObject.length); i++) {
-            if (trelloObject[i].getName().equals(name)) {
+        for (TrelloObject trelloObject1 : trelloObject) {
+            if (trelloObject1.getName().equals(name)) {
                 return "Found";
             }
         }
@@ -56,5 +54,12 @@ public class SearcherAttributes {
         return false;
     }
 
-
+    public static boolean isThereTheSameIdCard(String idCard, TrelloObject[] cards) {
+        for (TrelloObject card : cards) {
+            if (card.getId().equals(idCard)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
