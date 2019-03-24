@@ -2,7 +2,7 @@ package controllers.getter;
 
 import com.google.gson.Gson;
 import controllers.Objects.Auth;
-import controllers.Objects.Members;
+import controllers.Objects.Member;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -19,7 +19,7 @@ public class GetterMembers {
     Response response;
     String link;
     Map<String, String> fields = new HashMap<>();
-    Members[] members;
+    Member[] members;
 
     public GetterMembers(String idBoard) {
 
@@ -29,7 +29,7 @@ public class GetterMembers {
         link = GETMEMBERS + idBoard + "/members?fields=fullname";
         response = requestSpecification.when().get(link);
         System.out.println(response.body().asString());
-        members = gson.fromJson(response.body().asString(), Members[].class);
+        members = gson.fromJson(response.body().asString(), Member[].class);
     }
 
     public void putParams(String key, String data) {
@@ -39,7 +39,8 @@ public class GetterMembers {
     public String getMemberID(int num) {
         return members[num].getId();
     }
-    public Members[] getMember() {
+
+    public Member[] getMember() {
         return members;
     }
 

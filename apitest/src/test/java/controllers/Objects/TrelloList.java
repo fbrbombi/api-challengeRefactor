@@ -1,8 +1,8 @@
 package controllers.Objects;
 
-public class List extends TrelloObject {
+public class TrelloList extends TrelloObject {
 
-    public List(String name, String id, String pos) {
+    public TrelloList(String name, String id, String pos) {
         this.name = name;
         this.id = id;
         this.pos = pos;

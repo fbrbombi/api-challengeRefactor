@@ -2,7 +2,7 @@ package controllers.generator;
 
 import com.google.gson.Gson;
 import controllers.Objects.Auth;
-import controllers.Objects.List;
+import controllers.Objects.TrelloList;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -17,7 +17,7 @@ public class MemberGenerator {
     RequestSpecification requestSpecification;
     Response response;
     String link;
-    List[] Lists;
+    TrelloList[] trelloLists;
     Map<String, String> fields = new HashMap<>();
 
     public MemberGenerator(String idMembers, String idCard) {

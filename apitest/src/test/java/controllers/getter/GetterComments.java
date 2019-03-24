@@ -3,13 +3,11 @@ package controllers.getter;
 import com.google.gson.Gson;
 import controllers.Objects.Auth;
 import controllers.Objects.Comment;
-import controllers.Objects.List;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 import static controllers.Strings.ADDCARD;
-import static controllers.Strings.LIST;
 
 public class GetterComments {
     private Gson gson = new Gson();

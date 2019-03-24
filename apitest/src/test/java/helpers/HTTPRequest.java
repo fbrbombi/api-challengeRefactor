@@ -17,8 +17,7 @@ public class HTTPRequest {
         if (otherParams != null) {
             fields.putAll(otherParams);
         }
-        return RestAssured.given().contentType("application/json")
-                .and().queryParams(fields);
+        return RestAssured.given().contentType("application/json").and().queryParams(fields);
     }
 
     public static Response getRequest(Map<String, String> otherParams, String path) {
@@ -38,6 +37,6 @@ public class HTTPRequest {
 
     public static Response putRequest(Map<String, String> otherParams, String path) {
         String link = baseUrl + path;
-        return generateRequest(otherParams).when().delete(link);
+        return generateRequest(otherParams).when().put(link);
     }
 }

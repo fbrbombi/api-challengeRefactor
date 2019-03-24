@@ -1,11 +1,11 @@
 package runners;
 
 import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
+import net.serenitybdd.cucumber.CucumberWithSerenity;
 import org.junit.runner.RunWith;
 
-@RunWith(Cucumber.class) //Con que voy a correr mis test porque estamos usando cucumber con serenity
-@CucumberOptions(features = "src/test/resources/features", glue = "steps") // El camino de las features
+@RunWith(CucumberWithSerenity.class)
+@CucumberOptions(features = "src/test/resources/features", glue = "steps")
 public class RunnerTest1 {
 
 }

@@ -18,7 +18,4 @@ public class TrelloObject {
         return pos;
     }
 
-    public String[] getIdMembers() {
-        return idMembers;
-    }
 }

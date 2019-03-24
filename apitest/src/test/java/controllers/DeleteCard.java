@@ -2,7 +2,7 @@ package controllers;
 
 import com.google.gson.Gson;
 import controllers.Objects.Auth;
-import controllers.Objects.List;
+import controllers.Objects.TrelloList;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -18,7 +18,7 @@ public class DeleteCard {
     RequestSpecification requestSpecification;
     Response response;
     String link;
-    List[] Lists;
+    TrelloList[] trelloLists;
     Map<String, String> fields = new HashMap<>();
 
     public DeleteCard(String idCard) {

@@ -1,8 +1,8 @@
 package controllers.Objects;
 
-public class Members extends TrelloObject {
+public class Member extends TrelloObject {
 
-    public Members(String id) {
+    public Member(String id) {
         this.id = id;
     }
 
