@@ -7,8 +7,8 @@ import io.restassured.specification.RequestSpecification;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HTTPRequest {
-    private static String baseUrl = "https://api.trello.com/1/";
+class HTTPRequest {
+    private static final String baseUrl = "https://api.trello.com/1/";
 
     private static RequestSpecification generateRequest(Map<String, String> otherParams) {
         Map<String, String> fields = new HashMap<>();

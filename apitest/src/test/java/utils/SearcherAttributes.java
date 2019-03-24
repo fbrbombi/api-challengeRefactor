@@ -1,6 +1,6 @@
 package utils;
 
-import controllers.Objects.TrelloObject;
+import trelloObjects.TrelloObject;
 
 public class SearcherAttributes {
 
@@ -45,21 +45,14 @@ public class SearcherAttributes {
         return trelloObjects[position].getId();
     }
 
-    public static boolean isThisMemberPartOfTheCard(String idMember, TrelloObject[] cardMembers) {
-        for (TrelloObject cardMember : cardMembers) {
-            if (cardMember.getId().equals(idMember)) {
+
+    public static boolean isThisIdPartOfThisList(String id, TrelloObject[] trelloObjects) {
+        for (TrelloObject trelloObject : trelloObjects) {
+            if (trelloObject.getId().equals(id)) {
                 return true;
             }
         }
         return false;
     }
 
-    public static boolean isThereTheSameIdCard(String idCard, TrelloObject[] cards) {
-        for (TrelloObject card : cards) {
-            if (card.getId().equals(idCard)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

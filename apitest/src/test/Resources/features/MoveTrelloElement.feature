@@ -1,5 +1,5 @@
-Feature: Add Element to Trello
-  as a user of Trello, i want to add some elements to the board
+Feature: Move Element on Trello
+  as a user of Trello, i want to move some elements on the board
 
   Background:
     Given the user is member of a board

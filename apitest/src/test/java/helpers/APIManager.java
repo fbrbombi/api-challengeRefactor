@@ -1,7 +1,7 @@
 package helpers;
 
 import com.google.gson.Gson;
-import controllers.Objects.*;
+import trelloObjects.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.Map;
 import static utils.SearcherAttributes.*;
 
 public class APIManager {
-    protected Gson gson;
+    private final Gson gson;
 
     public APIManager() {
         gson = new Gson();
@@ -120,6 +120,10 @@ public class APIManager {
         Map<String, String> params = new HashMap<>();
         params.put("idList", nextList);
         HTTPRequest.putRequest(params, "cards/" + idCard);
+    }
+
+    public void deleteCard(String idCard) {
+        HTTPRequest.deleteRequest(null, "cards/" + idCard);
     }
 
 }

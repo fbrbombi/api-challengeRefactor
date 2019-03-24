@@ -1,4 +1,4 @@
-package controllers.Objects;
+package trelloObjects;
 
 public class TrelloList extends TrelloObject {
 

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 
-public class ConfigLoader {
+class ConfigLoader {
     private static final String PROPERTIES_FILENAME = "/config.properties";
     private static Properties properties;
 
@@ -18,13 +18,13 @@ public class ConfigLoader {
         return properties.get(key).toString();
     }
 
-    private static Properties loadProperties() {
+    private static void loadProperties() {
         try {
             properties = new Properties();
             properties.load(ConfigLoader.class.getResourceAsStream(PROPERTIES_FILENAME));
         } catch (IOException e) {
+            System.out.println("File Not Found");
         }
-        return properties;
     }
 
 }

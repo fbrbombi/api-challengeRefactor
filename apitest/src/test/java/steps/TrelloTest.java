@@ -10,7 +10,7 @@ import org.junit.Assert;
 
 import static utils.SearcherAttributes.*;
 
-public class TrelloAddTest {
+public class TrelloTest {
 
     private String board;
     private APIManager apiManager;
@@ -45,7 +45,7 @@ public class TrelloAddTest {
 
     @When("^the user creates a list called \"([^\"]*)\"$")
     public void theUserCreatesAListCalled(String name) {
-        int pos = Integer.parseInt(Serenity.sessionVariableCalled("listPosition")) - 1;
+        int pos = (int) Float.parseFloat(Serenity.sessionVariableCalled("listPosition")) - 1;
         String idBoard = Serenity.sessionVariableCalled("idBoard");
         apiManager.postNewList(name, idBoard, String.valueOf(pos));
     }
@@ -123,7 +123,7 @@ public class TrelloAddTest {
     public void theTrelloAPIShouldRespondsAddingANewMemberToTheCard() {
         String idCard = Serenity.sessionVariableCalled("idCard");
         String idMember = Serenity.sessionVariableCalled("idMember");
-        boolean validation = isThisMemberPartOfTheCard(idMember, apiManager.getListOfMembersCard(idCard));
+        boolean validation = isThisIdPartOfThisList(idMember, apiManager.getListOfMembersCard(idCard));
         Assert.assertTrue(validation);
 
     }
@@ -173,8 +173,29 @@ public class TrelloAddTest {
     public void theTrelloAPIShouldRespondsMovingTheCard() {
         String idCard = Serenity.sessionVariableCalled("idCard");
         String idNextList = Serenity.sessionVariableCalled("idNextList");
-        boolean validation = isThereTheSameIdCard(idCard, apiManager.getCardsFromList(idNextList));
+        boolean validation = isThisIdPartOfThisList(idCard, apiManager.getCardsFromList(idNextList));
         Assert.assertTrue(validation);
 
+    }
+
+    @And("^the user wants to delete the \"([^\"]*)\"$")
+    public void theUserWantsToDeleteThe(String cardName) {
+        String idList = Serenity.sessionVariableCalled("idList");
+        String idCard = apiManager.getCardId(idList, cardName);
+        Serenity.setSessionVariable("idCard").to(idCard);
+    }
+
+    @When("^the user send a petition for delete the card$")
+    public void theUserSendAPetitionForDeleteTheCard() {
+        String idCard = Serenity.sessionVariableCalled("idCard");
+        apiManager.deleteCard(idCard);
+    }
+
+    @Then("^The Trello API should responds erasing the card$")
+    public void theTrelloAPIShouldRespondsErasingTheCard() {
+        String idCard = Serenity.sessionVariableCalled("idCard");
+        String idList = Serenity.sessionVariableCalled("idList");
+        boolean validation = isThisIdPartOfThisList(idCard, apiManager.getCardsFromList(idList));
+        Assert.assertFalse(validation);
     }
 }
