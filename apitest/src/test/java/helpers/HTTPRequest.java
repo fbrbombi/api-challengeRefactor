@@ -1,6 +1,7 @@
 package helpers;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -17,7 +18,7 @@ class HTTPRequest {
         if (otherParams != null) {
             fields.putAll(otherParams);
         }
-        return RestAssured.given().contentType("application/json").and().queryParams(fields);
+        return RestAssured.given().contentType(ContentType.JSON).and().queryParams(fields);
     }
 
     public static Response getRequest(Map<String, String> otherParams, String path) {

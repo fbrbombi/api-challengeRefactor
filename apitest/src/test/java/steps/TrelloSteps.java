@@ -10,7 +10,7 @@ import org.junit.Assert;
 
 import static utils.SearcherAttributes.*;
 
-public class TrelloTest {
+public class TrelloSteps {
 
     private String board;
     private APIManager apiManager;
@@ -20,6 +20,9 @@ public class TrelloTest {
         //board = "API Challenge 19";
         board = "Prueba";
         apiManager = new APIManager();
+        Serenity.setSessionVariable("idBoard").to(apiManager.getBoardId(board));
+
+
     }
 
     @When("^the user send a petition for get the id boards with his api_key and token$")
@@ -58,17 +61,6 @@ public class TrelloTest {
         Assert.assertTrue(validation);
     }
 
-    @And("^the user has created \"([^\"]*)\" list$")
-    public void theUserHasCreatedList(String listName) {
-        String idBoard = apiManager.getBoardId(board);
-        Serenity.setSessionVariable("idBoard").to(idBoard);
-
-        if (!isThereAListWithName(apiManager.getTrelloList(idBoard), listName)) {
-            String listPosition = apiManager.getListPosition(apiManager.getTrelloList(idBoard), "DONE");
-            int pos = Integer.parseInt(listPosition) - 1;
-            apiManager.postNewList(listName, idBoard, String.valueOf(pos));
-        }
-    }
 
     @And("^the user wants to add the new card to the \"([^\"]*)\"$")
     public void theUserWantsToAddTheNewCardToThe(String listName) {
@@ -144,8 +136,8 @@ public class TrelloTest {
 
     @Then("^The Trello API should responds adding a new comment to the card$")
     public void theTrelloAPIShouldRespondsAddingANewCommentToTheCard() {
-        //String idCard = Serenity.sessionVariableCalled("idCard");
-        //System.out.println(apiManager.getComments(idCard)[0].getComments());
+        //      String idCard = Serenity.sessionVariableCalled("idCard");
+//        System.out.println(apiManager.getComments(idCard)[0].getComment());
 
 
     }

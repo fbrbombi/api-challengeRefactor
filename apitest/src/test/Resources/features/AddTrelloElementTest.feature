@@ -14,7 +14,6 @@ Feature: Add Element to Trello
     Then A new list called "QA Fabio" will displayed
 
   Scenario Outline: Add card to the list
-    And the user has created "QA Fabio" list
     And the user wants to add the new card to the "<list>"
     When the user send a petition for post the card with name "TestCard"
     Then The Trello API should responds only with the "TestCard" of the specific list
@@ -22,11 +21,9 @@ Feature: Add Element to Trello
       | list        |
       | TODO        |
       | IN PROGRESS |
-      | QA Fabio    |
       | DONE        |
 
   Scenario Outline: Add member to the card
-    And the user has created "QA Fabio" list
     And the user has created a "TestCard" card on the "<list>"
     And the user wants to add a new member to the "TestCard"
     When the user send a petition for add a new member
@@ -35,11 +32,9 @@ Feature: Add Element to Trello
       | list        |
       | TODO        |
       | IN PROGRESS |
-      | QA Fabio    |
       | DONE        |
 
   Scenario Outline: Add a comment to the card
-    And the user has created "QA Fabio" list
     And the user has created a "TestCard" card on the "<list>"
     And the user wants to add a new comment to the "TestCard"
     When the user send a petition for add a comment
@@ -48,6 +43,5 @@ Feature: Add Element to Trello
       | list        |
       | TODO        |
       | IN PROGRESS |
-      | QA Fabio    |
       | DONE        |
 

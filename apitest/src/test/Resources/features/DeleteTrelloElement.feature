@@ -3,7 +3,6 @@ Feature: Delete Element on Trello
 
   Background:
     Given the user is member of a board
-    And the user has created "QA Fabio" list
 
   Scenario Outline: Delete a card on the list
     And the user has created a "TestCard" card on the "<list>"
@@ -14,5 +13,4 @@ Feature: Delete Element on Trello
       | list        |
       | TODO        |
       | IN PROGRESS |
-      | QA Fabio    |
       | DONE        |

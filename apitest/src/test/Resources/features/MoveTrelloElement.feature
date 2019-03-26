@@ -3,7 +3,6 @@ Feature: Move Element on Trello
 
   Background:
     Given the user is member of a board
-    And the user has created "QA Fabio" list
 
   Scenario Outline: Move a card to another list
     And the user has created a "TestCard" card on the "<list>"

@@ -4,7 +4,7 @@ public class TrelloObject {
     protected String id;
     protected String name;
     protected String pos;
-    protected String comments;
+    //protected String comments;
     protected String[] idMembers;
 
     public String getId() {
@@ -19,8 +19,8 @@ public class TrelloObject {
         return pos;
     }
 
-    public String getComments() {
-        return comments;
-    }
+//    public String getComments() {
+//        return ;
+//    }
 
 }
