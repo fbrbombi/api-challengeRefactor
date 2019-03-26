@@ -7,11 +7,10 @@ Feature: Move Element on Trello
   Scenario Outline: Move a card to another list
     And the user has created a "TestCard" card on the "<list>"
     And the user wants to move the card to the "<nextList>"
-    When the user send a petition for move the card
+    When the user send a request for move the card
     Then The Trello API should responds moving the card
     Examples:
-      | list        | nextList    |
-      | TODO        | IN PROGRESS |
-      | IN PROGRESS | QA Fabio    |
-      | QA Fabio    | DONE        |
-      | DONE        | TODO        |
+      | list        | nextList |
+      | TODO        | DONE     |
+      | IN PROGRESS | DONE     |
+      | DONE        | TODO     |
