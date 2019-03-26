@@ -1,5 +1,6 @@
 package steps;
 
+import cucumber.api.java.After;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -9,8 +10,12 @@ import org.junit.Assert;
 
 public class TrelloSteps {
 
-
     private TestController testController = new TestController();
+
+    @After
+    public void after() {
+        testController.deleteCard();
+    }
 
     @Given("^the user is member of a board$")
     public void theUserIsMemberOfABoard() {
@@ -53,6 +58,8 @@ public class TrelloSteps {
     @When("^the user send a request for post the card with name \"([^\"]*)\"$")
     public void theUserSendARequestForPostTheCardWithName(String cardName) {
         testController.postNewCard(cardName);
+        testController.setCardName(cardName);
+        testController.findCardID();
     }
 
 
@@ -102,8 +109,8 @@ public class TrelloSteps {
 
     @Then("^The Trello API should responds adding a new comment to the card$")
     public void theTrelloAPIShouldRespondsAddingANewCommentToTheCard() {
-        //      String idCard = Serenity.sessionVariableCalled("idCard");
-//        System.out.println(apiManager.getComments(idCard)[0].getComment());
+        //String idCard = Serenity.sessionVariableCalled("idCard");
+        //System.out.println(apiManager.getComments(idCard)[0].getComment());
     }
 
     @And("^the user wants to move the card to the \"([^\"]*)\"$")
@@ -127,13 +134,13 @@ public class TrelloSteps {
         testController.findCardID();
     }
 
-    @When("^the user send a request for delete the card$")
-    public void theUserSendARequestForDeleteTheCard() {
+    @When("^the user send a request to delete the card$")
+    public void theUserSendARequestToDeleteTheCard() {
         testController.deleteCard();
     }
 
-    @Then("^The Trello API should responds erasing the card$")
-    public void theTrelloAPIShouldRespondsErasingTheCard() {
+    @Then("^The Trello API  responds erasing the card$")
+    public void theTrelloAPIRespondsErasingTheCard() {
         boolean validation = testController.isTheCardDeleted();
         Assert.assertFalse("Expected that is not here a card", validation);
     }

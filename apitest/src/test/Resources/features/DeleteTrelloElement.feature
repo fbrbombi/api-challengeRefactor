@@ -7,8 +7,8 @@ Feature: Delete Element on Trello
   Scenario Outline: Delete a card on the list
     And the user has created a "TestCard" card on the "<list>"
     And the user wants to delete the card
-    When the user send a request for delete the card
-    Then The Trello API should responds erasing the card
+    When the user send a request to delete the card
+    Then The Trello API  responds erasing the card
     Examples:
       | list        |
       | TODO        |
