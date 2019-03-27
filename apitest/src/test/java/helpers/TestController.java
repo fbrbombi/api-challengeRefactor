@@ -98,4 +98,9 @@ public class TestController {
     public boolean isTheCardDeleted() {
         return isThisIdPartOfThisList(idCard, apiManager.getCardsFromList(idList));
     }
+
+    public void handleJson() {
+        apiManager.getComments(idCard);
+
+    }
 }

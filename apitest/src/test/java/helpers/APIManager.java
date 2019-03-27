@@ -1,12 +1,14 @@
 package helpers;
 
 import com.google.gson.Gson;
+import io.restassured.response.Response;
 import trelloObjects.TrelloObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static helpers.TrelloEndPoints.*;
+import static io.restassured.path.json.JsonPath.with;
 import static utils.SearcherAttributes.*;
 
 public class APIManager {
@@ -20,6 +22,9 @@ public class APIManager {
         return HTTPRequest.getRequest(otherParams, endpoint).body().asString();
     }
 
+    private Response getResponse(String endpoint, Map<String, String> otherParams) {
+        return HTTPRequest.getRequest(otherParams, endpoint);
+    }
     private TrelloObject[] getTrelloObject(Map<String, String> otherParams, String endpoint) {
         return gson.fromJson(getTrelloObjectJSON(endpoint, otherParams), TrelloObject[].class);
     }
@@ -99,12 +104,24 @@ public class APIManager {
     }
 
 
-    public TrelloObject[] getComments(String idCard) {
+    public void getComments(String idCard) {
         Map<String, String> params = new HashMap<>();
         params.put("fields", "badges");
         String path = pathCards + idCard;
-        return getTrelloObject(params, path);
+        String response = getResponse(path, params).body().asString();
+        Map<String, Object> json = with(response).get();
+
+        System.out.println(json.get("id"));
+
     }
+
+//    public TrelloObject[] getComments(String idCard) {
+//        Map<String, String> params = new HashMap<>();
+//        params.put("fields", "badges");
+//        String path = pathCards + idCard;
+//
+//        return getTrelloObject(params, path);
+//    }
 
     public void moveACard(String nextList, String idCard) {
         Map<String, String> params = new HashMap<>();

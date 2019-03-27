@@ -42,6 +42,5 @@ Feature: Add Element to Trello
     Examples:
       | list        |
       | TODO        |
-      | IN PROGRESS |
-      | DONE        |
+
 

@@ -109,6 +109,8 @@ public class TrelloSteps {
 
     @Then("^The Trello API should responds adding a new comment to the card$")
     public void theTrelloAPIShouldRespondsAddingANewCommentToTheCard() {
+        testController.handleJson();
+
         //String idCard = Serenity.sessionVariableCalled("idCard");
         //System.out.println(apiManager.getComments(idCard)[0].getComment());
     }
