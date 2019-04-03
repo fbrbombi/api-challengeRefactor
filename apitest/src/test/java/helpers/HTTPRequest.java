@@ -1,12 +1,13 @@
 package helpers;
 
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static net.serenitybdd.rest.SerenityRest.rest;
 
 class HTTPRequest {
     private static final String baseUrl = "https://api.trello.com/1/";
@@ -18,7 +19,7 @@ class HTTPRequest {
         if (otherParams != null) {
             fields.putAll(otherParams);
         }
-        return RestAssured.given().contentType(ContentType.JSON).and().queryParams(fields);
+        return rest().given().contentType(ContentType.JSON).and().queryParams(fields);
     }
 
     public static Response getRequest(Map<String, String> otherParams, String path) {
@@ -38,6 +39,7 @@ class HTTPRequest {
 
     public static Response putRequest(Map<String, String> otherParams, String path) {
         String link = baseUrl + path;
+
         return generateRequest(otherParams).when().put(link);
     }
 }
